@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoneyFlow | Calculadora de Gastos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💰</text></svg>">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>MoneyFlow</span>
+                </a>
+                <div class="nav-links">
+                    <a href="#inicio">Inicio</a>
+                    <a href="#calculadora">Calculadora</a>
+                    <a href="#estadisticas">Estadísticas</a>
+                    <a href="#consejos">Consejos</a>
+                </div>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Controla tus <span class="highlight">finanzas</span> fácilmente</h1>
+                    <p>Calcula tus gastos, ahorra más y alcanza tus metas financieras con nuestra herramienta gratuita.</p>
+                    <a href="#calculadora" class="btn btn-primary">
+                        <i class="fas fa-calculator"></i> Comenzar ahora
+                    </a>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Finanzas personales">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator -->
+    <section class="calculator" id="calculadora">
+        <div class="container">
+            <h2 class="section-title">Calculadora de <span>Gastos</span></h2>
+            <div class="calculator-container">
+                <div class="calculator-form">
+                    <h3>Agrega tus gastos</h3>
+                    <div class="form-group">
+                        <label for="expenseName">
+                            <i class="fas fa-tag"></i> Descripción
+                        </label>
+                        <input type="text" id="expenseName" placeholder="Ej: Comida, Transporte, Entretenimiento">
+                    </div>
+                    <div class="form-group">
+                        <label for="expenseAmount">
+                            <i class="fas fa-dollar-sign"></i> Monto
+                        </label>
+                        <input type="number" id="expenseAmount" placeholder="0.00" min="0" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label for="expenseCategory">
+                            <i class="fas fa-list"></i> Categoría
+                        </label>
+                        <select id="expenseCategory">
+                            <option value="comida">🍔 Comida</option>
+                            <option value="transporte">🚗 Transporte</option>
+                            <option value="entretenimiento">🎬 Entretenimiento</option>
+                            <option value="vivienda">🏠 Vivienda</option>
+                            <option value="salud">🏥 Salud</option>
+                            <option value="educacion">📚 Educación</option>
+                            <option value="otros">📦 Otros</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" id="addExpense">
+                        <i class="fas fa-plus"></i> Agregar Gasto
+                    </button>
+                </div>
+                <div class="calculator-summary">
+                    <h3>Resumen Financiero</h3>
+                    <div class="summary-cards">
+                        <div class="summary-card">
+                            <div class="summary-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div class="summary-info">
+                                <h4>Gasto Total</h4>
+                                <p id="totalExpenses">$0.00</p>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                            <div class="summary-info">
+                                <h4>Gastos por Categoría</h4>
+                                <p id="categoryCount">0 categorías</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="expense-list">
+                        <h4>Gastos Recientes</h4>
+                        <div class="list-container" id="expenseList">
+                            <!-- Los gastos se agregarán aquí -->
+                            <p class="empty-message">No hay gastos registrados</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+    <section class="statistics" id="estadisticas">
+        <div class="container">
+            <h2 class="section-title">Estadísticas <span>Visuales</span></h2>
+            <div class="charts-container">
+                <div class="chart-card">
+                    <h3>Distribución por Categoría</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3>Gastos del Mes</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips -->
+    <section class="tips" id="consejos">
+        <div class="container">
+            <h2 class="section-title">Consejos para <span>Ahorrar</span></h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <h3>Establece un presupuesto</h3>
+                    <p>Define cuánto puedes gastar en cada categoría y apégate a ello.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3>Ahorra primero</h3>
+                    <p>Separa un porcentaje de tus ingresos para ahorros antes de gastar.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Revisa tus gastos</h3>
+                    <p>Analiza regularmente en qué estás gastando para identificar áreas de mejora.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3>Evita deudas innecesarias</h3>
+                    <p>Usa crédito con responsabilidad y paga tus tarjetas a tiempo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="logo">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>MoneyFlow</span>
+                    </div>
+                    <p>Herramienta gratuita para el control de gastos personales.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#calculadora">Calculadora</a></li>
+                        <li><a href="#estadisticas">Estadísticas</a></li>
+                        <li><a href="#consejos">Consejos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Plantillas de presupuesto</a></li>
+                        <li><a href="#">Calculadora de ahorros</a></li>
+                        <li><a href="#">Planificador financiero</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Suscríbete</h4>
+                    <p>Recibe consejos financieros semanales.</p>
+                    <div class="newsletter">
+                        <input type="email" placeholder="Tu correo">
+                        <button class="btn btn-primary">Enviar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 MoneyFlow. Todos los derechos reservados.</p>
+                <p>Hecho con <i class="fas fa-heart"></i> para mejorar tu salud financiera</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
